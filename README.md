@@ -9,23 +9,23 @@
 .         
 ├── data
 │   ├── winequality.csv          
-|   ├── ...            
-|   ├── ...                      
-|   └── (.csv files)    
+│   ├── ...            
+│   ├── ...                      
+│   └── (.csv files)    
 ├── logs
-|   ├── ...            
-|   ├── ...                      
-|   └── (.log files)             
+│   ├── ...            
+│   ├── ...                      
+│   └── (.log files)             
 ├── models
-|   ├── ...            
-|   ├── ...                      
-|   └── (.pkl files)          
+│   ├── ...            
+│   ├── ...                      
+│   └── (.pkl files)          
 ├── notebooks
 │   └── xctab.ipynb
 ├── output                        
-|   ├── ...            
-|   ├── ...                      
-|   └── (.csv & .png files)
+│   ├── ...            
+│   ├── ...                      
+│   └── (.csv & .png files)
 ├── samples
 │   ├── red-sample.csv                       
 │   └── red-samples.csv    
@@ -33,12 +33,12 @@
 │   ├── __init__.py                       
 │   └── test_utilities.py            
 ├── xctab           
-|   ├── __init__.py                
-|   ├── config.py           
-|   ├── data.py         
-|   ├── test.py       
-|   ├── train.py              
-|   └── utils.py
+│   ├── __init__.py                
+│   ├── config.py           
+│   ├── data.py         
+│   ├── test.py       
+│   ├── train.py              
+│   └── utils.py
 ├── README.md           
 └── requirements.txt   
 ```
