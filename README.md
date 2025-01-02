@@ -78,13 +78,13 @@ python ./xctab/train.py --help
 ```
 
 
-### 1. Prepare data for ingestion
+### 1. Prepare data
 
 ```
 python ./xctab/data.py
 ```
 
-### 2. Train a specified model on a specified train test 
+### 2. Train a specified model on a specified train set 
 
 ```
 python ./xctab/train.py [OPTIONS]
@@ -99,7 +99,7 @@ E.g.,  `python ./xctab/train.py -wt red -mn knn`
 
 Models' parameters are saved in `./models`.
 
-### 3. Query the trained model either on the coresponding test set or on specified samples of the same wine type
+### 3. Query the trained model either on the corresponding test set or on specified samples of the same wine type
 
 ```
 python ./xctab/test.py [OPTIONS]
@@ -111,7 +111,7 @@ OPTIONS:
 * `--test-mode` or `-tm` : _prediction_ or _inference_
 * `--export` or `-ex` : boolean
 
-E.g., `python ./xctab/test.py -wt red -mn knn -tm inference --ex`
+E.g., `python ./xctab/test.py -wt red -mn knn -tm inference -ex`
 
 When using the `--export` flag all output (e.g., results of the query in .`csv` format and confusion matrices in `.png` format) are saved in `./output`
 
@@ -121,8 +121,24 @@ To test, one can use the two templates provided in `./samples`
 
 E.g.,
 
-`python ./xctab/test.py -wt red -mn knn -tm prediction --ex`
+`python ./xctab/test.py -wt red -mn knn -tm prediction -ex`
 
 `"Type full path to sample(s) .csv file: "` (prompt)
 
 `samples/red-samples.csv` (user input)
+
+### 4. Plot the inference results
+
+```
+python ./xctab/plot.py [OPTIONS]
+```
+
+OPTIONS:
+* `--wine-type` or `-wt` : _red_ or _white_
+* `--model-name` or `-mn` : one of _autoencoder_, _ecod_, _knn_, _iforest_
+* `--cmatrix` or `-cm` : boolean
+* `--creport` or `-cr` : boolean
+
+E.g., `python ./xctab/test.py -wt red -mn knn -cm -cr`
+
+This function creates and saves the confusion matrix and the classification report plots.
