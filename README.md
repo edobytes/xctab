@@ -113,7 +113,7 @@ OPTIONS:
 
 E.g., `python ./xctab/test.py -wt red -mn knn -tm inference -ex`
 
-When using the `--export` flag all output (e.g., results of the query in .`csv` format and confusion matrices in `.png` format) are saved in `./output`
+When using the `--export` flag all output (e.g., results of the query in .`csv` format) is saved in `./output`
 
 When querying _prediction_ on sample(s), the user will be prompted for a path to the `.csv` file containing the sample(s).
 
