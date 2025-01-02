@@ -3,6 +3,7 @@ import sklearn
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from pickle import load
 from pathlib import Path
@@ -48,28 +49,8 @@ def report_df(target, predictions):
     report_dict = classification_report(target, predictions, output_dict=True)
     output_df = pd.DataFrame(report_dict).round(2).transpose()
     output_df.insert(loc=0, column='class', value=labels + ["accuracy", "macro avg", "weighted avg"])
+    #output_df = output_df.reset_index(drop=True)
     return output_df
-
-
-def cmatrix_plot(target, predictions):
-    """_summary_
-
-    Args:
-        target (np.array): ground truth
-        predictions (np.array): predictions
-
-    Returns:
-        fig (plt.fig): plot
-    """
-    conf_matrix = confusion_matrix(target, predictions)
-    group_names = ['True Neg', 'False Pos', 'False Neg', 'True Pos']
-    group_counts = ["{0:0.0f}".format(value) for value in conf_matrix.flatten()]
-    group_percentages = ["{0:.2%}".format(value) for value in conf_matrix.flatten()/np.sum(conf_matrix)]
-    labels = [f"{v1}\n{v2}\n{v3}" for v1, v2, v3 in zip(group_names,group_counts,group_percentages)]
-    labels = np.asarray(labels).reshape(2,2)
-    sns_plot = sns.heatmap(conf_matrix, annot=labels, fmt='', cmap='Blues')
-    fig = sns_plot.figure
-    return fig
 
 
 @app.command()
@@ -82,10 +63,10 @@ def main(wine_type: Annotated[str, typer.Option("--wine-type", "-wt")],
     Testing function for inference and prediction.
 
     Args:
-        wine_type (str): _description_
-        model_name (str): _description_
-        test_mode (str): _description_
-        export (bool): _description_
+        wine_type (str): wine type (red or white)
+        model_name (str): one of the implemented models
+        test_mode (str): test mode (inference or prediction)
+        export (bool): save output
     """
     assert wine_type in ['red', 'white'], "Invalid wine type"
     assert model_name in ['autoencoder', 'ecod', 'knn', 'iforest'], "Invalid model name"
@@ -131,7 +112,7 @@ def main(wine_type: Annotated[str, typer.Option("--wine-type", "-wt")],
         else:
             print(pred_df.to_string())      
   
-    if test_mode == 'inference':
+    elif test_mode == 'inference':
         if wine_type == 'red':
             test_set = data_directory / "red_test.csv"
         else:
@@ -164,12 +145,7 @@ def main(wine_type: Annotated[str, typer.Option("--wine-type", "-wt")],
 
             report_path = output_directory.joinpath(f"{model_name}-{wine_type}-inference-report.csv")
             rep_df.to_csv(report_path, index=False)
-            log.info(f"Exporting to : {report_path}")   
-
-            cmplot_path = output_directory.joinpath(f"{model_name}-{wine_type}-inference-cmatrix.png")
-            cmplot = cmatrix_plot(y, y_hat) 
-            cmplot.savefig(cmplot_path)   
-            log.info(f"Exporting to : {cmplot_path}")
+            log.info(f"Exporting to : {report_path}")            
         else:
             print("Prediction results:")
             print(pred_df.to_string())
