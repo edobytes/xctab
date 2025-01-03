@@ -24,7 +24,7 @@ def main(wine_type: Annotated[str, typer.Option("--wine-type", "-wt")],
 
     Args:
         wine_type (str): red or white
-        model_name (str): a small selection from sklearn's many options
+        model_name (str): a small selection from pyod's many options
 
     Returns:
         None
